@@ -55,7 +55,7 @@ jobs:
         run: |
           cd ${{ inputs.workdir }}
           ${{ inputs.build_command }}
-      # Validación con NPM Outdated Action
+      # Validación con NPM Outdated 
       - name: NPM Outdated Check
         uses: cssnr/npm-outdated-action@master
         continue-on-error: true
