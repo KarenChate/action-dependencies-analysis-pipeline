@@ -82,7 +82,7 @@ jobs:
       
       # Validación con NPM Audit
       - name: NPM Audit Comment
-        uses: wx-jayesh/actions-npm-audit-comment@v1
+        uses: wx-jayesh/actions-npm-audit-comment@v1.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
