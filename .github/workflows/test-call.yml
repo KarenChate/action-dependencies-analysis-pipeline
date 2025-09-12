@@ -11,7 +11,7 @@ jobs:
     uses: ./.github/workflows/dependencies-analysis-pipeline.yml
 
     with:
-      project-name: 'Prueba FF'
+      project_name: 'Prueba FF'
       node-version: '20.x'
       workdir: './'
       build_command: 'npm install'
