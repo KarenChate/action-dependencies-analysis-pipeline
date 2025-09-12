@@ -8,7 +8,7 @@ on:
       - feature/dependencies_pipeline_reusable
 jobs:
   test-call:
-    uses: /.github/workflows/dependencies-analysis-pipeline.yml
+    uses: ./.github/workflows/dependencies-analysis-pipeline.yml
 
     with:
       project-name: 'Prueba FF'
