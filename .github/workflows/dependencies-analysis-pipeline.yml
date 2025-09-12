@@ -67,6 +67,17 @@ jobs:
           heading: '***NPM Outdated Check****'
           # GitHub Token
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: 'Echo Output'
+        env:
+          OUTDATED: ${{ steps.outdated.outputs.outdated }}
+          NCU: ${{ steps.outdated.outputs.ncu }}
+          UPDATE: ${{ steps.outdated.outputs.update }}
+          MARKDOWN: ${{ steps.outdated.outputs.markdown }}
+        run: |
+          echo "outdated: '${{ env.OUTDATED }}'"
+          echo "ncu: '${{ env.NCU }}'"
+          echo "update: '${{ env.UPDATE }}'"
+          echo "markdown: '${{ env.MARKDOWN }}'"
       
       # Validación con NPM Audit
       - name: npm-audit   
