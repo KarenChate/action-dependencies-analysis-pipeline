@@ -81,11 +81,14 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
       
       # Validación con NPM Audit
-      - name: NPM Audit Comment
-        uses: wx-jayesh/actions-npm-audit-comment@v1.0.0
+      - name: npm-audit   
+        uses: oke-py/npm-audit-action@v2.4.4
         with:
+          audit_level: moderate
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
+          issue_assignees: oke-py
+          issue_labels: vulnerability,test
+          dedupe_issues: true
 
     
       
