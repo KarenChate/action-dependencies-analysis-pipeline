@@ -1,0 +1,14 @@
+name: Test Dependencies Analysis 
+on: 
+  push:
+    branches:
+      - feature/dependencies_pipeline_reusable
+  pull_request:
+    branches:
+      - feature/dependencies_pipeline_reusable
+jobs:
+  test-call:
+    uses: ./.github/workflows/dependencies-analysis.yml
+    with:
+      project-name: 'Prueba FF'
+    
