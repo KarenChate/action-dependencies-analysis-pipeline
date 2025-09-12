@@ -12,4 +12,7 @@ jobs:
 
     with:
       project-name: 'Prueba FF'
+      node-version: '20.x'
+      workdir: './'
+      build_command: 'npm install'
     
