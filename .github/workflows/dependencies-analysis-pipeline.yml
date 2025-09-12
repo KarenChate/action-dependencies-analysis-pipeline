@@ -62,27 +62,15 @@ jobs:
         uses: cssnr/npm-outdated-action@master
         continue-on-error: true
         with:
-          columns: n,c,w,l
-          # Report if Latest > Wanted
-          latest: true
+          columns: 'n,l,c,w,d'
           # Comment Heading
-          heading: NPM Outdated Check
-          # Details Open by Default
-          open: true
-          # Show npm-check-updates Output
-          ncu: true
-          # Show npm update --dry-run Output
-          update: true
-          # Use Link for Names
-          link: true
-          # Add Summary to Job
-          summary: true
+          heading: '***NPM Outdated Check****'
           # GitHub Token
           github_token: ${{ secrets.GITHUB_TOKEN }}
       
       # Validación con NPM Audit
       - name: npm-audit   
-        uses: oke-py/npm-audit-action@v2.4.4
+        uses: oke-py/npm-audit-action@v3.0.0
         with:
           audit_level: moderate
           github_token: ${{ secrets.GITHUB_TOKEN }}
