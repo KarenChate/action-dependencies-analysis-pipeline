@@ -13,10 +13,10 @@ permissions:
     
 jobs:
   test-call:
-    uses: ./.github/workflows/dependencies-analysis-pipeline.yml
+    uses: ./.github/workflows/dependencies-analysis-report-pipeline.yml
 
     with:
-      project_name: 'Prueba FF'
+      project_name: 'Prueba Dependencies Analysis'
       node-version: '20.x'
       workdir: './'
       build_command: 'npm install'
