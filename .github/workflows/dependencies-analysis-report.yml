@@ -1,0 +1,66 @@
+name: dependencies-analysis-report-pipeline
+
+on:
+  workflow_call:
+    inputs:
+      workdir:
+        description: The working directory for the job
+        required: false
+        default: './'
+        type: string
+      organization:
+        description: Dependencies Analysis
+        required: false
+        default: 'davivienda-colombia'
+        type: string
+      project_name:
+        description: The name of the project
+        required: true
+        type: string
+      language:
+        description: The programming language of the project
+        required: false
+        default: 'JavaScript, TypeScript, node.js'
+        type: string
+      package_manager:
+        description: The package manager used in the project
+        required: false
+        default: 'npm'
+        type: string
+      node-version:
+        description: The Node.js version to use
+        required: false
+        default: '18.x'
+        type: string
+      build_command:
+        description: The command to build the project
+        required: true
+        default: 'npm ci'
+        type: string
+      
+
+jobs:
+  build-dependencies-analysis:
+    runs-on: ubuntu-latest
+    contents: read 
+    pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3.5.0
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: Install dependencies
+        run: |
+          cd ${{ inputs.workdir }}
+          ${{ inputs.build_command }}
+      - name: Check dependencies
+        run: |
+          python ff_v1.py ${{ inputs.workdir }}
+      - name: Subir reporte de dependencias
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependencies-report
+          path: ${{ inputs.workdir }}/reporte.json
