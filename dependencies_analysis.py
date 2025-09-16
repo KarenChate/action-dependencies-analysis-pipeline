@@ -1,8 +1,7 @@
 import subprocess
 import json
 
-NPM_CMD = r"C:\Program Files\nodejs\npm.cmd"
-
+NPM_CMD = 'npm'
 
 def check_outdated():
     #Comando 'npm outdated' para detectar depedencias obsoletas
