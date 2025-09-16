@@ -1,7 +1,7 @@
 import subprocess
 import json
 
-NPM_CMD = r"C:\Program Files\nodejs\npm.cmd"
+NPM_CMD = 'npm'
 
 def count_total_dependencies(package_json_path):
     with open(package_json_path, encoding="utf-8") as f:
