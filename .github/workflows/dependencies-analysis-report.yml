@@ -42,8 +42,7 @@ on:
 jobs:
   build-dependencies-analysis:
     runs-on: ubuntu-latest
-    contents: read 
-    pull-requests: write
+    permissions: write-all
 
     steps:
       - name: Checkout code
