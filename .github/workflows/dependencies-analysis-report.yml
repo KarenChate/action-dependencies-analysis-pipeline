@@ -1,4 +1,4 @@
-name: dependencies-analysis-report-pipeline
+name: dependencies-analysis-report
 
 on:
   workflow_call:
