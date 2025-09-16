@@ -58,7 +58,7 @@ jobs:
           ${{ inputs.build_command }}
       - name: Check dependencies
         run: |
-          python ff_v1.py ${{ inputs.workdir }}
+          python dependencies_analysis.py ${{ inputs.workdir }}
       - name: Subir reporte de dependencias
         uses: actions/upload-artifact@v4
         with:
