@@ -1,0 +1,93 @@
+name: dependencies-analysis-pipeline
+
+on:
+  workflow_call:
+    inputs:
+      workdir:
+        description: The working directory for the job
+        required: false
+        default: './'
+        type: string
+      organization:
+        description: Dependencies Analysis
+        required: false
+        default: 'davivienda-colombia'
+        type: string
+      project_name:
+        description: The name of the project
+        required: true
+        type: string
+      language:
+        description: The programming language of the project
+        required: false
+        default: 'JavaScript, TypeScript, node.js'
+        type: string
+      package_manager:
+        description: The package manager used in the project
+        required: false
+        default: 'npm'
+        type: string
+      node-version:
+        description: The Node.js version to use
+        required: false
+        default: '18.x'
+        type: string
+      build_command:
+        description: The command to build the project
+        required: false
+        default: 'npm ci'
+        type: string
+      
+
+jobs:
+  build-dependencies-analysis:
+    runs-on: ubuntu-latest
+    permissions: 
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3.5.0
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: Install dependencies
+        run: |
+          cd ${{ inputs.workdir }}
+          ${{ inputs.build_command }}
+      # Validación con NPM Outdated Action
+      - name: NPM Outdated Check
+        uses: cssnr/npm-outdated-action@master
+        continue-on-error: true
+        with:
+          columns: 'n,l,c,w,d'
+          # Comment Heading
+          heading: '***NPM Outdated Check****'
+          # GitHub Token
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: 'Echo Output'
+        env:
+          OUTDATED: ${{ steps.outdated.outputs.outdated }}
+          NCU: ${{ steps.outdated.outputs.ncu }}
+          UPDATE: ${{ steps.outdated.outputs.update }}
+          MARKDOWN: ${{ steps.outdated.outputs.markdown }}
+        run: |
+          echo "outdated: '${{ env.OUTDATED }}'"
+          echo "ncu: '${{ env.NCU }}'"
+          echo "update: '${{ env.UPDATE }}'"
+          echo "markdown: '${{ env.MARKDOWN }}'"
+      
+      # Validación con NPM Audit
+      - name: npm-audit   
+        uses: oke-py/npm-audit-action@v3.0.0
+        with:
+          audit_level: moderate
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          issue_assignees: oke-py
+          issue_labels: vulnerability,test
+          dedupe_issues: true
+
+    
+      
